@@ -32,6 +32,7 @@ AddGlobal(name="Drag", comment='Force exerted on body in X-direction', unit="N")
 AddGlobal(name="Lift", comment='Force exerted on body in Z-direction', unit="N")
 AddGlobal(name="Lateral", comment='Force exerted on body in Y-direction', unit="N")
 
+AddNodeType("Buffer", "BOUNDARY")
 AddNodeType("WVelocityTurbulent", "BOUNDARY")
 AddNodeType("NVelocity", "BOUNDARY")
 AddNodeType("SVelocity", "BOUNDARY")
@@ -41,7 +42,6 @@ AddNodeType("NSymmetry", "ADDITIONALS")
 AddNodeType("SSymmetry", "ADDITIONALS")
 AddNodeType("Body", "BODY")
 AddNodeType("IB", group="HO_BOUNDARY")
-
 for (f in fname) AddField(f,dx=0,dy=0,dz=0) # Make f accessible also in present node (not only streamed)
 
 #Averaging values
