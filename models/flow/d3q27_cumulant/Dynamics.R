@@ -37,8 +37,11 @@ AddNodeType("NVelocity", "BOUNDARY")
 AddNodeType("SVelocity", "BOUNDARY")
 AddNodeType("NPressure", "BOUNDARY")
 AddNodeType("SPressure", "BOUNDARY")
+AddNodeType("MovingWall", "BOUNDARY")
 AddNodeType("NSymmetry", "ADDITIONALS")
 AddNodeType("SSymmetry", "ADDITIONALS")
+AddNodeType("FSymmetry", "ADDITIONALS")
+AddNodeType("BSymmetry", "ADDITIONALS")
 AddNodeType("Body", "BODY")
 
 
@@ -48,7 +51,7 @@ for (f in fname) AddField(f,dx=0,dy=0,dz=0) # Make f accessible also in present 
 
 #Smagorinsky coefficient
 if(Options$SMAG){
-	AddSetting(name="Smag", default=0, comment='Smagorinsky coefficient for SGS modeling')
+	AddSetting(name="Smag", default=0.16, comment='Smagorinsky coefficient for SGS modeling')
 }
 
 #Interpolated BounceBack Node
