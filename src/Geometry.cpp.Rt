@@ -490,11 +490,22 @@ inline int Geometry::loadSTL(lbRegion reg, pugi::xml_node n)
 	error("'STL' element: %s doesn't exists or cannot be opened\n", n.attribute("file").value());
 	return -1;
     }
+    fseek(f, 0, SEEK_END); // seek to end of file
+    int f_size = ftell(f); // get current file pointer
+    fseek(f, 0, SEEK_SET); // seek back to beginning of file
+    int f_ntri = (f_size - 80 - 4)/(4*3*4+2); // calculate number of triangles from file size
     ret = fread(header, 80, sizeof(char), f);
     ret = fread(&ntri, 1, sizeof(int), f);
     if (!strncmp(header, "solid", 5)){      // Checking if STL is binary. STL in ASCII begins with "solid"
         error("'STL' element %s is not in binary format!\n", n.attribute("file").value());
         debug1("'solid' found at the beginning of STL file");
+        return -1;
+    }
+    if (f_ntri > ntri) {
+        NOTICE("More triangles in STL file than header promised");
+        ntri = f_ntri;
+    } else if (f_ntri < ntri) {
+        ERROR("Less triangles in STL than header promised");
         return -1;
     }
     tri = (STL_tri *) malloc(ntri * sizeof(STL_tri));
