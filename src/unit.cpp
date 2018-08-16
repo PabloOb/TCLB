@@ -32,7 +32,10 @@ void GaussSolve (double A[], double b[], double x[], int n)
           b[i] = tmp;
           break;
         }
-
+    if (is_zero(A[IND(k,k)])) {
+      ERROR("Cannot solve matrix");
+      return;
+    }
     for (i=k+1; i<n; i++)
     {
       double m = A[IND(i,k)] / A[IND(k,k)];
