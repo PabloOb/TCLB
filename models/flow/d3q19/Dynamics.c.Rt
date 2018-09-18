@@ -245,6 +245,11 @@ CudaDeviceFunction void CollisionMRT()
         #define S19 omega2
         real_t gamma1 = 1 - omega;
         real_t gamma2 = 1 - 8.0 * ( 2.0 - omega )/( 8.0 - omega );
+
+        if ((NodeType & NODE_BOUNDARY) != 0) {
+        gamma1 = 1 - omegabuffer;
+        gamma2 = 1 - 8.0 * ( 2.0 - omegabuffer )/( 8.0 - omegabuffer );
+        }
 <?R
 	S = PV("S",1:19);
 	S[c(1,4,6,8)] = 0;
